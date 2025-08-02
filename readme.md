@@ -7,3 +7,8 @@ Gill 是一个建立在 SolanaKit 基础上的 JavaScript 客户端库，同样�
 这里会按照 Chainbuff 社区的教程列表进行编写
 
 这里的所有私钥相关的都是演示的，不会涉及真实资金。所以才会上传 github ，没有写入 gitignore
+
+codama 命令
+
+npx codama run js
+npx tsx generate.ts
