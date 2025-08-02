@@ -7,6 +7,7 @@ import {
   type Base64EncodedBytes,
   type Base58EncodedBytes,
   type Signature,
+  fetchEncodedAccount,
 } from "gill";
 import bs58 from "bs58";
 import { rpc } from "../client.js";
@@ -42,7 +43,9 @@ console.log(`当前slot: ${slot.toString()}\n`);
 //   .getAccountInfo(address("8sLbNZoA1cfnvMJLPfp98ZLAnFSYCFApfJKMbiXNLwxj"))
 //   .send();
 // console.log("已解析的账户信息：", parsedAccountInfo);
-
+// const accountToFetch = address("8sLbNZoA1cfnvMJLPfp98ZLAnFSYCFApfJKMbiXNLwxj");
+// const account = await fetchEncodedAccount(rpc, accountToFetch);
+// console.log("已解析的账户信息：", account);
 // 7. getParsedTransaction
 // const parsedTransaction = await rpc
 //   .getTransaction(
@@ -101,22 +104,22 @@ console.log(`当前slot: ${slot.toString()}\n`);
 
 // 12. getProgramAccounts 提供的程序返回 Pubkey 拥有的所有帐户
 
-let program = address("TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA");
-const mainNetRpcClient = createSolanaRpc("...");
-let accounts = await mainNetRpcClient
-  .getProgramAccounts(program, {
-    encoding: "base58",
-    filters: [
-      {
-        dataSize: BigInt(165),
-      },
-      {
-        memcmp: {
-          offset: 32n,
-          bytes: "CDNcMNZAPmpoiqquyHaQ89wYLWtfDhHpii2JZntFf7Qh",
-        },
-      },
-    ],
-  })
-  .send();
-console.log("前3个账户:", accounts);
+// let program = address("TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA");
+// const mainNetRpcClient = createSolanaRpc("...");
+// let accounts = await mainNetRpcClient
+//   .getProgramAccounts(program, {
+//     encoding: "base58",
+//     filters: [
+//       {
+//         dataSize: BigInt(165),
+//       },
+//       {
+//         memcmp: {
+//           offset: 32n,
+//           bytes: "CDNcMNZAPmpoiqquyHaQ89wYLWtfDhHpii2JZntFf7Qh",
+//         },
+//       },
+//     ],
+//   })
+//   .send();
+// console.log(accounts);
