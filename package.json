@@ -19,6 +19,8 @@
   },
   "homepage": "https://github.com/daniel8038/gill-101#readme",
   "dependencies": {
+    "@codama/cli": "^1.2.1",
+    "@solana-program/system": "^0.7.0",
     "bs58": "^6.0.0",
     "gill": "^0.10.2"
   },
