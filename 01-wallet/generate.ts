@@ -8,7 +8,6 @@ import {
   extractBytesFromKeyPair,
   extractBytesFromKeyPairSigner,
   createKeyPairSignerFromBytes,
-  KeyPairSigner,
 } from "gill";
 import { exportCryptoKey } from "../utils.js";
 

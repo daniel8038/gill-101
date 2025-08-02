@@ -3,7 +3,6 @@ import {
   createSolanaRpc,
   createSolanaRpcSubscriptions,
   type SolanaClusterMoniker,
-  
 } from "gill";
 import { loadKeypairSignerFromFile } from "gill/node";
 import {
@@ -25,7 +24,7 @@ const {
 // 也可单独创建
 // const rpc = createSolanaRpc("http://localhost:8899");
 // const rpcSubscriptions = createSolanaRpcSubscriptions("ws://localhost:8900");
-const singer = await loadKeypairSignerFromFile("keypair.json");
+const signer = await loadKeypairSignerFromFile("keypair.json");
 const estimateAndUpdateCUs = estimateAndUpdateProvisoryComputeUnitLimitFactory(
   estimateComputeUnitLimitFactory({ rpc })
 );
@@ -33,7 +32,7 @@ const estimateAndUpdateCUs = estimateAndUpdateProvisoryComputeUnitLimitFactory(
 export {
   rpc,
   rpcSubscriptions,
-  singer,
+  signer,
   sendAndConfirmTransaction,
   simulateTransaction,
   estimateAndUpdateCUs,

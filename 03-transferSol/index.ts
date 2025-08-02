@@ -23,20 +23,20 @@ import {
   rpc,
   sendAndConfirmTransaction,
   simulateTransaction,
-  singer,
+  signer,
 } from "../client.js";
 
 const recipinet = await generateKeyPairSigner();
 
 const transferInstruction = getTransferSolInstruction({
-  source: singer,
+  source: signer,
   destination: recipinet.address,
   amount: lamports(BigInt(LAMPORTS_PER_SOL / 100)),
 });
 const latestBlockhash = await rpc.getLatestBlockhash().send();
 const transactionMessage = createTransaction({
   version: 0,
-  feePayer: singer,
+  feePayer: signer,
   instructions: [
     getSetComputeUnitPriceInstruction({ microLamports: 5000n }),
     transferInstruction,
