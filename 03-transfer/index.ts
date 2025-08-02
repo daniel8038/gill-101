@@ -8,11 +8,18 @@ import {
   createTransaction,
   signTransactionMessageWithSigners,
   getExplorerLink,
+  prependTransactionMessageInstruction,
 } from "gill";
-import { getSetComputeUnitPriceInstruction } from "gill/programs";
+import {
+  estimateAndUpdateProvisoryComputeUnitLimitFactory,
+  estimateComputeUnitLimitFactory,
+  getSetComputeUnitLimitInstruction,
+  getSetComputeUnitPriceInstruction,
+} from "gill/programs";
 import { getTransferSolInstruction } from "@solana-program/system";
 
 import {
+  estimateAndUpdateCUs,
   rpc,
   sendAndConfirmTransaction,
   simulateTransaction,
@@ -36,8 +43,17 @@ const transactionMessage = createTransaction({
   ],
   latestBlockhash: latestBlockhash.value,
 });
-const signTx = await signTransactionMessageWithSigners(transactionMessage);
 
+const transactionMessageWithCUs = await estimateAndUpdateCUs(
+  transactionMessage
+);
+
+console.log("transactionMessageWithCUs", transactionMessageWithCUs);
+const signTx = await signTransactionMessageWithSigners(
+  transactionMessageWithCUs
+);
+
+// 优化CU
 let signature = await sendAndConfirmTransaction(signTx);
 
 console.log("\nExplorer Link (for creating the mint):");

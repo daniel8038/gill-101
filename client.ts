@@ -2,9 +2,14 @@ import {
   createSolanaClient,
   createSolanaRpc,
   createSolanaRpcSubscriptions,
-  SolanaClusterMoniker,
+  type SolanaClusterMoniker,
+  
 } from "gill";
 import { loadKeypairSignerFromFile } from "gill/node";
+import {
+  estimateAndUpdateProvisoryComputeUnitLimitFactory,
+  estimateComputeUnitLimitFactory,
+} from "gill/programs";
 const cluster: SolanaClusterMoniker = "devnet";
 // 这里是createSolanaClient 自动把 https 转为 wss来处理 订阅的
 // urlOrMoniker.protocol = urlOrMoniker.protocol.replace('http', 'ws');
@@ -21,6 +26,9 @@ const {
 // const rpc = createSolanaRpc("http://localhost:8899");
 // const rpcSubscriptions = createSolanaRpcSubscriptions("ws://localhost:8900");
 const singer = await loadKeypairSignerFromFile("keypair.json");
+const estimateAndUpdateCUs = estimateAndUpdateProvisoryComputeUnitLimitFactory(
+  estimateComputeUnitLimitFactory({ rpc })
+);
 
 export {
   rpc,
@@ -28,4 +36,5 @@ export {
   singer,
   sendAndConfirmTransaction,
   simulateTransaction,
+  estimateAndUpdateCUs,
 };
