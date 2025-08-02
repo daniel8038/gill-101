@@ -19,6 +19,7 @@ import {
   sendAndConfirmTransaction,
   signer,
 } from "../client.js";
+import { getSetComputeUnitLimitInstruction, getSetComputeUnitPriceInstruction } from "gill/programs";
 
 const { value: latestBlockhash } = await rpc.getLatestBlockhash().send();
 
