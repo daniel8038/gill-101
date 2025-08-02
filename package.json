@@ -1,0 +1,28 @@
+{
+  "name": "gill-101",
+  "version": "1.0.0",
+  "description": "这是一个 solana 交互的教程，因为 solana/web3js 现在已经发布第二版 solana/kit。",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daniel8038/gill-101.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/daniel8038/gill-101/issues"
+  },
+  "homepage": "https://github.com/daniel8038/gill-101#readme",
+  "dependencies": {
+    "bs58": "^6.0.0",
+    "gill": "^0.10.2"
+  },
+  "devDependencies": {
+    "@types/node": "^24.1.0"
+  }
+}
