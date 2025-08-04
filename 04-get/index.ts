@@ -11,6 +11,10 @@ import {
 } from "gill";
 import bs58 from "bs58";
 import { rpc } from "../client.js";
+import {
+  TOKEN_2022_PROGRAM_ADDRESS,
+  TOKEN_PROGRAM_ADDRESS,
+} from "gill/programs";
 // https://solana.com/ja/docs/rpc/http  方法都在这里
 // 1. getSlot
 const slot = await rpc.getSlot().send();
@@ -74,19 +78,33 @@ console.log(`当前slot: ${slot.toString()}\n`);
 // console.log(`最近的3笔交易签名: `, signatures);
 
 // 9. getTokenAccountsByOwner 返回代币持有者的所有 SPL 代币账户
-// const { value: tokenAccountsByOwner } = await rpc
-//   .getTokenAccountsByOwner(
-//     address("AMHc45Z7NJCiyQ3Zn1bvgY953AzLQqDm3s6he9VruBLe"),
-//     {
-//       mint: address("59XSiYRqUp1UTv3BGWz4jucpTAGkq3pzLQMAxKBBnQzp"),
-//     },
-//     { encoding: "jsonParsed" }
-//   )
-//   .send();
-// console.log(
-//   `token账户:`,
-//   tokenAccountsByOwner[0].account.data.parsed.info.tokenAmount
-// );
+const mainNetRpcClient = createSolanaRpc(
+  "https://delicate-bitter-meadow.solana-mainnet.quiknode.pro/cfcf4b66ee16de962b28fb9cbed2a2cd66ed5329/"
+);
+const { value: tokenAccountsByOwner } = await mainNetRpcClient
+  .getTokenAccountsByOwner(
+    address("8D4SDVbJJs8huNCRAxbSrCpnJFgZ7ahajCbrsBqLK3CP"),
+    {
+      programId: TOKEN_PROGRAM_ADDRESS,
+    },
+    { encoding: "jsonParsed" }
+  )
+  .send();
+const { value: tokenAccountsByOwner_2022 } = await mainNetRpcClient
+  .getTokenAccountsByOwner(
+    address("8D4SDVbJJs8huNCRAxbSrCpnJFgZ7ahajCbrsBqLK3CP"),
+    {
+      programId: TOKEN_2022_PROGRAM_ADDRESS,
+    },
+    { encoding: "jsonParsed" }
+  )
+  .send();
+// CDNcMNZAPmpoiqquyHaQ89wYLWtfDhHpii2JZntFf7Qh 21
+// 8D4SDVbJJs8huNCRAxbSrCpnJFgZ7ahajCbrsBqLK3CP 6
+console.log(
+  `token账户:`,
+  tokenAccountsByOwner.length + tokenAccountsByOwner_2022.length
+);
 
 // 10. getTokenLargestAccounts
 // const tokenLargestAccounts = await rpc
