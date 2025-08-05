@@ -130,9 +130,10 @@ export function getBuyInstructionDataCodec(): FixedSizeCodec<
 
 也就是这三部分：
 
-- program_id：所针对的程序的 id 
+- program_id：所针对的程序的 id
 
 - accounts：需要读或写的全部账户组成的数组
 
 - instruction_data：向指定程序所传输的数据的字节码
 
+这些在 buy.ts 文件都打了注释 可以直接在 ts 文件学习 这里就没有必要在复述一遍了
