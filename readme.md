@@ -2,13 +2,16 @@
 
 不过这里，不讲 solana/kit 而是 gill 。
 
-Gill 是一个建立在 SolanaKit 基础上的 JavaScript 客户端库，同样用于与 Solana 区块链交互，但它通过改进命名、简化的 API 和额外的功能（如交易构建器和调试模式）来优化开发者体验。换句话说，Gill 是基于 SolanaKit 构建的，依赖 SolanaKit 的核心功能，同时在其基础上增加了额外的便利性和功能
+这里会按照 Chainbuff 社区的教程列表进行编写,不同的是 你应该先看 ts 代码文件，代码都给上了注释，然后才看 readme.md 文件。要注意的是，这里更偏向于你已经理解基础知识，而且对于非常简单的东西是没有多少描述的，你可直接看 [这里](https://github.com/ChainBuff/solana-web3js/tree/main)。
 
-这里会按照 Chainbuff 社区的教程列表进行编写,不同的是 你应该先看 ts 代码文件，代码都给上了注释，然后才看 readme.md 文件。
+最后会讲解一下 codama 用 pumpfun 的 IDL 生成的函数，然后进行一个 buy 交易的实践练习
+
+Gill 是一个建立在 SolanaKit 基础上的 JavaScript 客户端库，同样用于与 Solana 区块链交互，但它通过改进命名、简化的 API 和额外的功能（如交易构建器和调试模式）来优化开发者体验。换句话说，Gill 是基于 SolanaKit 构建的，依赖 SolanaKit 的核心功能，同时在其基础上增加了额外的便利性和功能
 
 这里的所有私钥相关的都是演示的，不会涉及真实资金。所以才会上传 github ，没有写入 gitignore
 
 codama 命令
 
 npx codama run js
+
 npx tsx generate.ts

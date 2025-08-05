@@ -1,4 +1,6 @@
-这个没什么好写的
+这个没什么好写的，在 sendToken 也使用过。原理就是通过模拟调用获取，消耗的 CU。然后再真实交易的时候填入 CU，以便更好的交易。
+
+至于 CU 是什么，直接看 [chainbuff-cu](https://github.com/ChainBuff/solana-web3js/tree/main/07-cu) 就好了。
 
 如果是估算,gill 给写好了封装
 
