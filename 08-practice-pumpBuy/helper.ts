@@ -1,5 +1,16 @@
-import { fixEncoderSize, getBytesEncoder, type ReadonlyUint8Array } from "gill";
-import type { BuyInstructionDataArgs } from "./type.js";
+import {
+  AccountRole,
+  fixEncoderSize,
+  getBytesEncoder,
+  
+  upgradeRoleToSigner,
+  type AccountMeta,
+  type AccountSignerMeta,
+  type Address,
+  type ProgramDerivedAddress,
+  type TransactionSigner,
+} from "gill";
+import type { BuyInstructionDataArgs, ResolvedAccount } from "./type.js";
 import {
   BUY_DISCRIMINATOR,
   getBuyInstructionDataCodec,
@@ -7,14 +18,19 @@ import {
   getBuyInstructionDataEncoder,
 } from "./buy.js";
 import bs58 from "bs58";
-// 你可以这样尝试下会有什么不同
+//////////////////////////////////////
+// 你可以这样尝试fixEncoderSize下会有什么不同
+//////////////////////////////////////
 // fixEncoderSize(getBytesEncoder(), 8).encode(BUY_DISCRIMINATOR)
 const buyDiscriminatorBytes = fixEncoderSize(getBytesEncoder(), 8).encode(
   new Uint8Array([11, 102, 6, 61, 18, 1, 218, 235, 234, 11])
 );
 console.log(buyDiscriminatorBytes);
 
+//////////////////////////////////////
 // 这里就可以看出 什么是 序列化 和 反序列化了  编码 和 解码
+//////////////////////////////////////
+//
 const args = {
   amount: 1,
   maxSolCost: 1,
@@ -26,7 +42,9 @@ console.log(buyInstructionData);
 const buyInstructionDataDecode =
   getBuyInstructionDataDecoder().decode(buyInstructionData);
 console.log(args, buyInstructionDataDecode);
-
+////////////////////////////////
+///////////自定义解码函数/////////
+///////////////////////////////
 // 其实也可以自己写一个通用解码函数  毕竟都是根据 字段的字节数进行偏移 找出对应数据的对应位置 然后进行解码
 // 当然这里就是简单的说明  肯定是 codama生成的更加的完善
 const BUY_INSTRUCTION_FIELDS = [
@@ -70,3 +88,4 @@ function decodeInstructionData(fields: any, data: Buffer) {
 console.log(
   decodeInstructionData(BUY_INSTRUCTION_FIELDS, Buffer.from(buyInstructionData))
 );
+

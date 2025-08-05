@@ -85,4 +85,54 @@ solana 的交易或者说指令是并行的，solana 会检查指令账户的依
     },
 ```
 
-IDL 了解之后就可以开始逐步的完成这个交易的代码了。
+IDL 了解之后就可以开始逐步的完成这个 buy 交易的代码了。
+
+## helper function
+
+```ts
+// fixEncoderSize这个函数是 从一个getBytesEncoder 编码器，创建一个新的并且输出长度最多为 fixedBytes: 8 的解析器
+// helper.ts  文件你可以执行测试
+function getBuyDiscriminatorBytes() {
+  return fixEncoderSize(getBytesEncoder(), 8).encode(BUY_DISCRIMINATOR);
+}
+// 这个就是编码了 也就是编码成 InstructionData 对于evm的话就是 calldata
+function getBuyInstructionDataEncoder(): FixedSizeEncoder<BuyInstructionDataArgs> {
+  return transformEncoder(
+    getStructEncoder([
+      ["discriminator", fixEncoderSize(getBytesEncoder(), 8)],
+      ["amount", getU64Encoder()],
+      ["maxSolCost", getU64Encoder()],
+    ]),
+    (value) => ({ ...value, discriminator: BUY_DISCRIMINATOR })
+  );
+}
+// 这个是解码 将InstructionData 解码成可读的数据结构
+function getBuyInstructionDataDecoder(): FixedSizeDecoder<BuyInstructionData> {
+  return getStructDecoder([
+    ["discriminator", fixDecoderSize(getBytesDecoder(), 8)],
+    ["amount", getU64Decoder()],
+    ["maxSolCost", getU64Decoder()],
+  ]);
+}
+// 同时具有解码和编码的功能
+export function getBuyInstructionDataCodec(): FixedSizeCodec<
+  BuyInstructionDataArgs,
+  BuyInstructionData
+> {
+  return combineCodec(
+    getBuyInstructionDataEncoder(),
+    getBuyInstructionDataDecoder()
+  );
+}
+```
+
+上边这些 helper function 可以帮助我们更好的处理 InstructionData，之后就到了重要的一步 构建 buy 交易的 Instruction 了
+
+也就是这三部分：
+
+- program_id：所针对的程序的 id 
+
+- accounts：需要读或写的全部账户组成的数组
+
+- instruction_data：向指定程序所传输的数据的字节码
+
